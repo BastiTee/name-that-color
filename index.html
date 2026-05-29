@@ -3,19 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Name That Color</title>
+  <title>What's That Color?</title>
   <link rel="stylesheet" href="./src/style.css">
 </head>
 <body>
   <header>
-    <h1 id="title">Name That Color</h1>
+    <h1 id="title">What's That Color?</h1>
   </header>
 
   <main>
     <section class="game-area">
       <div id="swatch" class="swatch" aria-label="Color swatch to identify"></div>
 
-      <button id="reveal-btn" class="reveal-btn"></button>
+      <div id="reveal-bar" class="reveal-bar">
+        <div class="reveal-bar-fill"></div>
+      </div>
 
       <div id="choices" class="choices" role="group" aria-label="Color name choices">
         <button class="choice-btn" data-index="0"></button>

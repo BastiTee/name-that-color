@@ -6,7 +6,7 @@ The game SHALL display a large colored swatch whose background color is set to t
 - **THEN** the swatch background SHALL match the CSS named color for that round exactly
 
 ### Requirement: Multiple-choice name selection
-The game SHALL present exactly three answer choices per round. The choices SHALL be hidden at round start. A "Reveal Options" button SHALL be shown instead. When the player clicks "Reveal Options", the three choice buttons SHALL become visible and the reveal button SHALL be hidden. Exactly one choice SHALL be the correct CSS color for the displayed swatch. The remaining two SHALL be distinct, randomly selected colors that are not the correct answer. All choice labels SHALL be rendered through the active color set's locale translation via `tColor()` rather than through `i18n.t('colors.*')`.
+The game SHALL present exactly three answer choices per round. The choices SHALL be hidden at round start. A 3-second animated countdown progress bar SHALL be shown instead of a "Reveal Options" button. When the countdown completes, the three choice buttons SHALL become visible and the progress bar SHALL be hidden. Exactly one choice SHALL be the correct CSS color for the displayed swatch. The remaining two SHALL be distinct, randomly selected colors that are not the correct answer. All choice labels SHALL be rendered through the active color set's locale translation via `tColor()` rather than through `i18n.t('colors.*')`.
 
 #### Scenario: Choices contain the correct answer
 - **WHEN** the choices are revealed
@@ -15,6 +15,10 @@ The game SHALL present exactly three answer choices per round. The choices SHALL
 #### Scenario: Labels update on locale switch
 - **WHEN** the user changes locale while a round is active
 - **THEN** all three choice button labels SHALL immediately re-render using the color set's translations for the new locale
+
+#### Scenario: Choices revealed after timer
+- **WHEN** 3 seconds have elapsed since the round started
+- **THEN** the three answer-choice buttons SHALL become visible automatically without any player interaction
 
 ### Requirement: Answer feedback
 After the player selects an answer, the game SHALL immediately indicate whether the choice was correct or incorrect. The correct answer SHALL always be highlighted after selection, even if the player chose incorrectly. Each choice button SHALL display a small color swatch square showing the actual color it represents.

@@ -4,7 +4,7 @@ const translations = {
   en: {
     ui: {
       next: 'Next Color →',
-      title: 'Name That Color',
+      title: "What's That Color?",
       reveal: 'Reveal Options',
     },
   },

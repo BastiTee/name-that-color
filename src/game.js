@@ -70,7 +70,9 @@ const infoName = document.getElementById("info-name");
 const infoHex = document.getElementById("info-hex");
 const infoRgb = document.getElementById("info-rgb");
 const nextBtn = document.getElementById("next-btn");
-const revealBtn = document.getElementById("reveal-btn");
+const revealBar = document.getElementById("reveal-bar");
+const revealBarFill = revealBar.querySelector(".reveal-bar-fill");
+let revealTimer = null;
 const titleEl = document.getElementById("title");
 const langSelect = document.getElementById("lang-select");
 const similarPanel = document.getElementById("similar-panel");
@@ -128,7 +130,6 @@ function renderSimilarPanel() {
 function renderUI() {
   titleEl.textContent = t('ui.title');
   nextBtn.textContent = t('ui.next');
-  revealBtn.textContent = t('ui.reveal');
 }
 
 function startRound() {
@@ -161,11 +162,22 @@ function startRound() {
   renderUI();
 
   choicesDiv.classList.add("hidden");
-  revealBtn.classList.remove("hidden");
+
+  clearTimeout(revealTimer);
+  revealBarFill.classList.remove("draining");
+  void revealBarFill.offsetWidth; // force reflow to restart animation
+  revealBarFill.classList.add("draining");
+  revealBar.classList.remove("hidden");
+  revealTimer = setTimeout(showChoices, 3000);
 
   infoPanel.classList.add("hidden");
   similarPanel.classList.add("hidden");
   nextBtn.classList.add("hidden");
+}
+
+function showChoices() {
+  revealBar.classList.add("hidden");
+  choicesDiv.classList.remove("hidden");
 }
 
 function revealAnswer(selectedBtn) {
@@ -216,11 +228,6 @@ langSelect.value = getLocale();
 
 langSelect.addEventListener('change', () => setLocale(langSelect.value));
 document.addEventListener('localechange', onLocaleChange);
-
-revealBtn.addEventListener('click', () => {
-  choicesDiv.classList.remove("hidden");
-  revealBtn.classList.add("hidden");
-});
 
 choiceBtns.forEach(btn => {
   btn.addEventListener("click", () => {

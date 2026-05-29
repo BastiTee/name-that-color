@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 :root {
   --bg: #1a1a2e;
   --surface: #16213e;
@@ -204,8 +208,7 @@ main {
 }
 
 /* Next button */
-.next-btn,
-.reveal-btn {
+.next-btn {
   min-height: 44px;
   padding: 0.75rem 1.75rem;
   background: var(--accent);
@@ -219,15 +222,42 @@ main {
   transition: opacity var(--transition), transform var(--transition);
 }
 
-.next-btn:hover,
-.reveal-btn:hover {
+.next-btn:hover {
   opacity: 0.9;
   transform: translateY(-1px);
 }
 
-.next-btn.hidden,
-.reveal-btn.hidden {
+.next-btn.hidden {
   display: none;
+}
+
+/* Countdown progress bar */
+@keyframes drain {
+  from { width: 100%; }
+  to   { width: 0%; }
+}
+
+.reveal-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.reveal-bar.hidden {
+  display: none;
+}
+
+.reveal-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  width: 100%;
+}
+
+.reveal-bar-fill.draining {
+  animation: drain 3s linear forwards;
 }
 
 /* Color swatch square inside choice buttons (shown after answering) */
