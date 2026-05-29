@@ -23,6 +23,8 @@
         <button class="choice-btn" data-index="2"></button>
       </div>
 
+      <button id="next-btn" class="next-btn hidden"></button>
+
       <div id="info-panel" class="info-panel hidden" aria-live="polite">
         <div class="info-grid">
           <div class="info-item">
@@ -40,7 +42,20 @@
         </div>
       </div>
 
-      <button id="next-btn" class="next-btn hidden">Next Color &rarr;</button>
+      <div id="similar-panel" class="similar-panel hidden">
+        <div class="similar-cell similar-left">
+          <div class="similar-swatch" id="sim-left-swatch"></div>
+          <span class="similar-name" id="sim-left-name"></span>
+        </div>
+        <div class="similar-cell similar-center">
+          <div class="similar-swatch" id="sim-center-swatch"></div>
+          <span class="similar-name" id="sim-center-name"></span>
+        </div>
+        <div class="similar-cell similar-right">
+          <div class="similar-swatch" id="sim-right-swatch"></div>
+          <span class="similar-name" id="sim-right-name"></span>
+        </div>
+      </div>
     </section>
   </main>
 
