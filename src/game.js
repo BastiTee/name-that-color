@@ -1,4 +1,4 @@
-import { COLORS } from './colors.js';
+import { getActiveColorset, COLORSETS, setActiveColorset } from './colors.js';
 import { t, tColor, getLocale, setLocale, LOCALES } from './i18n.js';
 
 function rgbToLab(r, g, b) {
@@ -23,8 +23,9 @@ function labToHue(a, b) {
 }
 
 function findNeighbors(color) {
+  const colors = getActiveColorset().colors;
   const seen = new Set();
-  const unique = COLORS.filter(c => {
+  const unique = colors.filter(c => {
     if (c.hex === color.hex || seen.has(c.hex)) return false;
     seen.add(c.hex);
     return true;
@@ -142,40 +143,48 @@ function renderInfoPanel() {
 function renderSimilarPanel() {
   if (!currentNeighbors) return;
   const { left, right } = currentNeighbors;
-  simLeftSwatch.style.backgroundColor = left.name;
-  simCenterSwatch.style.backgroundColor = currentColor.name;
-  simRightSwatch.style.backgroundColor = right.name;
+  simLeftSwatch.style.backgroundColor = left.hex;
+  simCenterSwatch.style.backgroundColor = currentColor.hex;
+  simRightSwatch.style.backgroundColor = right.hex;
   simLeftName.textContent = tColor(left.name);
   simCenterName.textContent = tColor(currentColor.name);
   simRightName.textContent = tColor(right.name);
 }
+
+const colorsetSelect = document.getElementById("colorset-select");
 
 function renderUI() {
   titleEl.textContent = t('ui.title');
   nextBtn.textContent = t('ui.next');
   statStreakLabel.textContent = t('ui.streak');
   statBestLabel.textContent = t('ui.best');
+  Array.from(colorsetSelect.options).forEach(opt => {
+    const cs = COLORSETS.find(c => c.id === opt.value);
+    if (cs) opt.textContent = cs.label[getLocale()] ?? cs.label.en;
+  });
 }
 
 function startRound() {
   answered = false;
   currentNeighbors = null;
+  lastColor = null;
 
+  const colors = getActiveColorset().colors;
   let color;
   do {
-    color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    color = colors[Math.floor(Math.random() * colors.length)];
   } while (color === lastColor);
   currentColor = color;
 
-  const distractor1 = pickRandom(COLORS, currentColor);
+  const distractor1 = pickRandom(colors, currentColor);
   let distractor2;
   do {
-    distractor2 = pickRandom(COLORS, currentColor);
+    distractor2 = pickRandom(colors, currentColor);
   } while (distractor2 === distractor1);
 
   currentChoices = shuffle([currentColor, distractor1, distractor2]);
 
-  swatch.style.backgroundColor = currentColor.name;
+  swatch.style.backgroundColor = currentColor.hex;
 
   choiceBtns.forEach(btn => {
     btn.className = "choice-btn";
@@ -224,7 +233,8 @@ function revealAnswer(selectedBtn) {
   choiceBtns.forEach(btn => {
     btn.disabled = true;
     btn.classList.add("answered");
-    btn.style.setProperty('--btn-color', btn.dataset.colorName);
+    const choiceColor = getActiveColorset().colors.find(c => c.name === btn.dataset.colorName);
+    btn.style.setProperty('--btn-color', choiceColor?.hex ?? btn.dataset.colorName);
     if (btn.dataset.colorName === currentColor.name) {
       btn.classList.add("correct");
     } else if (btn === selectedBtn && !isCorrect) {
@@ -261,8 +271,23 @@ LOCALES.forEach(({ code, label }) => {
 });
 langSelect.value = getLocale();
 
+// Populate colorset switcher
+COLORSETS.forEach(cs => {
+  const opt = document.createElement('option');
+  opt.value = cs.id;
+  opt.textContent = cs.label[getLocale()] ?? cs.label.en;
+  colorsetSelect.appendChild(opt);
+});
+colorsetSelect.value = getActiveColorset().id;
+
 langSelect.addEventListener('change', () => setLocale(langSelect.value));
 document.addEventListener('localechange', onLocaleChange);
+
+colorsetSelect.addEventListener('change', () => {
+  setActiveColorset(colorsetSelect.value);
+  streak = 0;
+  startRound();
+});
 
 choiceBtns.forEach(btn => {
   btn.addEventListener("click", () => {

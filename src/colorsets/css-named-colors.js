@@ -2,6 +2,7 @@
 // Source: https://www.w3.org/TR/css-color-4/#named-colors
 export const id = 'css-named-colors';
 
+export const label = { en: 'CSS Colors', de: 'CSS-Farben' };
 export const colors = [
   { name: "aliceblue", label: "Alice Blue", hex: "#F0F8FF", r: 240, g: 248, b: 255 },
   { name: "antiquewhite", label: "Antique White", hex: "#FAEBD7", r: 250, g: 235, b: 215 },

@@ -310,22 +310,25 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Language switcher */
+/* Footer: language + colorset switchers */
 footer {
   margin-top: 1.5rem;
   width: 100%;
   display: flex;
   justify-content: center;
+  gap: 0.75rem;
 }
 
-#lang-switcher {
+#lang-switcher,
+#colorset-switcher {
   display: flex;
   align-items: center;
   font-size: 0.8rem;
   color: var(--text-muted);
 }
 
-#lang-select {
+#lang-select,
+#colorset-select {
   background: var(--surface);
   color: var(--text);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -336,7 +339,8 @@ footer {
   cursor: pointer;
 }
 
-#lang-select:focus {
+#lang-select:focus,
+#colorset-select:focus {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }

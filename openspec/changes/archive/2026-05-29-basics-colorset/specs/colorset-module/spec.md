@@ -1,3 +1,5 @@
+## MODIFIED Requirements
+
 ### Requirement: Color set module format
 Each color set SHALL be a dedicated JS module exporting `id` (string), `label` (locale-keyed map of display names for the colorset itself, e.g. `{ en: 'Basics', de: 'Grundlagen' }`), `colors` (array of `{ name, label, hex, r, g, b }`), and `translations` (locale-keyed map of `colorName → displayLabel`). The `translations.en` map SHALL be derivable from the `label` fields of the `colors` array. A color set module SHALL be fully self-contained — no other module needs to be edited to add or change its translations.
 
@@ -27,10 +29,3 @@ The system SHALL expose a `tColor(name)` function in `i18n.js` that resolves a c
 #### Scenario: tColor reflects colorset switch
 - **WHEN** the active colorset is changed and `tColor` is called for a name in the new set
 - **THEN** the correct translation from the new set SHALL be returned
-
-### Requirement: i18n module contains only app UI strings
-The `i18n.js` module SHALL NOT contain any color-name translations. Its `translations` registry SHALL only contain `ui` sub-maps. It SHALL NOT import `COLORS` or any color set module directly (the color set reference is injected or imported separately).
-
-#### Scenario: i18n has no colors sub-map
-- **WHEN** the `translations` object in `i18n.js` is inspected
-- **THEN** it SHALL contain only `ui` keys, no `colors` keys

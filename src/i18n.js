@@ -1,4 +1,4 @@
-import { translations as colorTranslations } from './colorsets/css-named-colors.js';
+import { getActiveColorset } from './colors.js';
 
 const translations = {
   en: {
@@ -8,6 +8,7 @@ const translations = {
       reveal: 'Reveal Options',
       streak: 'Streak',
       best: 'Best',
+      colorset: 'Color Set',
     },
   },
   de: {
@@ -17,6 +18,7 @@ const translations = {
       reveal: 'Optionen anzeigen',
       streak: 'Serie',
       best: 'Bestwert',
+      colorset: 'Farbset',
     },
   },
 };
@@ -47,9 +49,6 @@ export function t(key) {
 
 export function tColor(name) {
   const locale = getLocale();
-  return (
-    colorTranslations[locale]?.[name] ??
-    colorTranslations['en']?.[name] ??
-    name
-  );
+  const t = getActiveColorset().translations;
+  return t[locale]?.[name] ?? t['en']?.[name] ?? name;
 }
