@@ -124,7 +124,8 @@ main {
   transition: opacity var(--transition), transform var(--transition);
 }
 
-.info-panel.hidden {
+.info-panel.hidden,
+.choices.hidden {
   display: none;
 }
 
@@ -156,7 +157,8 @@ main {
 }
 
 /* Next button */
-.next-btn {
+.next-btn,
+.reveal-btn {
   min-height: 44px;
   padding: 0.75rem 1.75rem;
   background: var(--accent);
@@ -170,13 +172,38 @@ main {
   transition: opacity var(--transition), transform var(--transition);
 }
 
-.next-btn:hover {
+.next-btn:hover,
+.reveal-btn:hover {
   opacity: 0.9;
   transform: translateY(-1px);
 }
 
-.next-btn.hidden {
+.next-btn.hidden,
+.reveal-btn.hidden {
   display: none;
+}
+
+/* Color swatch square inside choice buttons (shown after answering) */
+.choice-btn {
+  position: relative;
+}
+
+.choice-btn.answered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.choice-btn.answered::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: var(--btn-color);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Language switcher */

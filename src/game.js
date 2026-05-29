@@ -2,12 +2,14 @@ import { COLORS } from './colors.js';
 import { t, getLocale, setLocale, LOCALES } from './i18n.js';
 
 const swatch = document.getElementById("swatch");
+const choicesDiv = document.getElementById("choices");
 const choiceBtns = Array.from(document.querySelectorAll(".choice-btn"));
 const infoPanel = document.getElementById("info-panel");
 const infoName = document.getElementById("info-name");
 const infoHex = document.getElementById("info-hex");
 const infoRgb = document.getElementById("info-rgb");
 const nextBtn = document.getElementById("next-btn");
+const revealBtn = document.getElementById("reveal-btn");
 const titleEl = document.getElementById("title");
 const langSelect = document.getElementById("lang-select");
 
@@ -46,6 +48,7 @@ function renderInfoPanel() {
 function renderUI() {
   titleEl.textContent = t('ui.title');
   nextBtn.textContent = t('ui.next');
+  revealBtn.textContent = t('ui.reveal');
 }
 
 function startRound() {
@@ -67,13 +70,18 @@ function startRound() {
 
   swatch.style.backgroundColor = currentColor.name;
 
-  choiceBtns.forEach((btn, i) => {
+  choiceBtns.forEach(btn => {
     btn.className = "choice-btn";
     btn.disabled = false;
+    btn.style.removeProperty('--btn-color');
   });
 
   renderButtons();
   renderUI();
+
+  // Pre-reveal phase: hide choices, show reveal button
+  choicesDiv.classList.add("hidden");
+  revealBtn.classList.remove("hidden");
 
   infoPanel.classList.add("hidden");
   nextBtn.classList.add("hidden");
@@ -88,6 +96,8 @@ function revealAnswer(selectedBtn) {
 
   choiceBtns.forEach(btn => {
     btn.disabled = true;
+    btn.classList.add("answered");
+    btn.style.setProperty('--btn-color', btn.dataset.colorName);
     if (btn.dataset.colorName === currentColor.name) {
       btn.classList.add("correct");
     } else if (btn === selectedBtn && !isCorrect) {
@@ -118,6 +128,11 @@ langSelect.value = getLocale();
 
 langSelect.addEventListener('change', () => setLocale(langSelect.value));
 document.addEventListener('localechange', onLocaleChange);
+
+revealBtn.addEventListener('click', () => {
+  choicesDiv.classList.remove("hidden");
+  revealBtn.classList.add("hidden");
+});
 
 choiceBtns.forEach(btn => {
   btn.addEventListener("click", () => {

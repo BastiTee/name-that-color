@@ -5,6 +5,7 @@ const translations = {
     ui: {
       next: 'Next Color →',
       title: 'Name That Color',
+      reveal: 'Reveal Options',
     },
     colors: Object.fromEntries(COLORS.map(c => [c.name, c.label])),
   },
@@ -12,6 +13,7 @@ const translations = {
     ui: {
       next: 'Nächste Farbe →',
       title: 'Wie heißt die Farbe?',
+      reveal: 'Optionen anzeigen',
     },
     colors: {
       aliceblue: 'Alice-Blau',
@@ -26,7 +28,7 @@ const translations = {
       blue: 'Blau',
       blueviolet: 'Blauviolett',
       brown: 'Braun',
-      burlywood: 'Burl-Holz',
+      burlywood: 'Wurzelholz',
       cadetblue: 'Kadettenblau',
       chartreuse: 'Chartreuse',
       chocolate: 'Schokolade',
