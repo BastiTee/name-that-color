@@ -37,6 +37,33 @@ header {
   margin-bottom: 1.25rem;
 }
 
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 0.6rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.stat-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
 h1 {
   font-size: 1.5rem;
   font-weight: 700;

@@ -6,6 +6,8 @@ const translations = {
       next: 'Next Color →',
       title: "What's That Color?",
       reveal: 'Reveal Options',
+      streak: 'Streak',
+      best: 'Best',
     },
   },
   de: {
@@ -13,6 +15,8 @@ const translations = {
       next: 'Nächste Farbe →',
       title: 'Wie heißt die Farbe?',
       reveal: 'Optionen anzeigen',
+      streak: 'Serie',
+      best: 'Bestwert',
     },
   },
 };

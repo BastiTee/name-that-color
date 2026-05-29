@@ -73,7 +73,30 @@ const nextBtn = document.getElementById("next-btn");
 const revealBar = document.getElementById("reveal-bar");
 const revealBarFill = revealBar.querySelector(".reveal-bar-fill");
 let revealTimer = null;
+const statStreak = document.getElementById("stat-streak");
+const statBest = document.getElementById("stat-best");
+
+let streak = 0;
+
+function loadHighScore() {
+  try {
+    const v = localStorage.getItem('ntc-highscore');
+    return v !== null ? parseInt(v, 10) : null;
+  } catch { return null; }
+}
+
+function saveHighScore(value) {
+  try { localStorage.setItem('ntc-highscore', String(value)); } catch { /* ignore */ }
+}
+
+function renderStats() {
+  statStreak.textContent = streak;
+  const best = loadHighScore();
+  statBest.textContent = best !== null ? best : '—';
+}
 const titleEl = document.getElementById("title");
+const statStreakLabel = document.querySelector("#stat-streak").previousElementSibling;
+const statBestLabel = document.querySelector("#stat-best").previousElementSibling;
 const langSelect = document.getElementById("lang-select");
 const similarPanel = document.getElementById("similar-panel");
 const simLeftSwatch = document.getElementById("sim-left-swatch");
@@ -130,6 +153,8 @@ function renderSimilarPanel() {
 function renderUI() {
   titleEl.textContent = t('ui.title');
   nextBtn.textContent = t('ui.next');
+  statStreakLabel.textContent = t('ui.streak');
+  statBestLabel.textContent = t('ui.best');
 }
 
 function startRound() {
@@ -160,6 +185,7 @@ function startRound() {
 
   renderButtons();
   renderUI();
+  renderStats();
 
   choicesDiv.classList.add("hidden");
 
@@ -187,6 +213,14 @@ function revealAnswer(selectedBtn) {
   const selectedName = selectedBtn.dataset.colorName;
   const isCorrect = selectedName === currentColor.name;
 
+  if (isCorrect) {
+    streak += 1;
+    const best = loadHighScore();
+    if (best === null || streak > best) saveHighScore(streak);
+  } else {
+    streak = 0;
+  }
+
   choiceBtns.forEach(btn => {
     btn.disabled = true;
     btn.classList.add("answered");
@@ -203,6 +237,7 @@ function revealAnswer(selectedBtn) {
   renderInfoPanel();
   renderSimilarPanel();
   renderUI();
+  renderStats();
   infoPanel.classList.remove("hidden");
   similarPanel.classList.remove("hidden");
   nextBtn.classList.remove("hidden");
@@ -237,4 +272,5 @@ choiceBtns.forEach(btn => {
 
 nextBtn.addEventListener("click", startRound);
 
+renderStats();
 startRound();
