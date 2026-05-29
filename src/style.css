@@ -278,7 +278,7 @@ main {
 
 .reveal-bar-fill {
   height: 100%;
-  background: var(--accent);
+  background: var(--text-muted);
   border-radius: 3px;
   width: 100%;
 }
@@ -295,7 +295,7 @@ main {
 .choice-btn.answered {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.5rem;
 }
 
