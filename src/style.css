@@ -179,6 +179,37 @@ main {
   display: none;
 }
 
+/* Language switcher */
+footer {
+  margin-top: 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#lang-switcher {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+#lang-select {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#lang-select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* Desktop overrides (≥600px) */
 @media (min-width: 600px) {
   body {

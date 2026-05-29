@@ -1,4 +1,5 @@
 import { COLORS } from './colors.js';
+import { t, getLocale, setLocale, LOCALES } from './i18n.js';
 
 const swatch = document.getElementById("swatch");
 const choiceBtns = Array.from(document.querySelectorAll(".choice-btn"));
@@ -7,10 +8,12 @@ const infoName = document.getElementById("info-name");
 const infoHex = document.getElementById("info-hex");
 const infoRgb = document.getElementById("info-rgb");
 const nextBtn = document.getElementById("next-btn");
+const langSelect = document.getElementById("lang-select");
 
 let currentColor = null;
 let lastColor = null;
 let answered = false;
+let currentChoices = [];
 
 function pickRandom(arr, exclude = null) {
   const pool = exclude ? arr.filter(c => c !== exclude) : arr;
@@ -24,6 +27,23 @@ function shuffle(arr) {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
+}
+
+function renderButtons() {
+  choiceBtns.forEach((btn, i) => {
+    btn.textContent = t('colors.' + currentChoices[i].name);
+    btn.dataset.colorName = currentChoices[i].name;
+  });
+}
+
+function renderInfoPanel() {
+  infoName.textContent = t('colors.' + currentColor.name);
+  infoHex.textContent = currentColor.hex;
+  infoRgb.textContent = `rgb(${currentColor.r}, ${currentColor.g}, ${currentColor.b})`;
+}
+
+function renderUI() {
+  nextBtn.textContent = t('ui.next');
 }
 
 function startRound() {
@@ -41,16 +61,17 @@ function startRound() {
     distractor2 = pickRandom(COLORS, currentColor);
   } while (distractor2 === distractor1);
 
-  const choices = shuffle([currentColor, distractor1, distractor2]);
+  currentChoices = shuffle([currentColor, distractor1, distractor2]);
 
   swatch.style.backgroundColor = currentColor.name;
 
   choiceBtns.forEach((btn, i) => {
-    btn.textContent = choices[i].name;
-    btn.dataset.colorName = choices[i].name;
     btn.className = "choice-btn";
     btn.disabled = false;
   });
+
+  renderButtons();
+  renderUI();
 
   infoPanel.classList.add("hidden");
   nextBtn.classList.add("hidden");
@@ -72,12 +93,29 @@ function revealAnswer(selectedBtn) {
     }
   });
 
-  infoName.textContent = currentColor.name;
-  infoHex.textContent = currentColor.hex;
-  infoRgb.textContent = `rgb(${currentColor.r}, ${currentColor.g}, ${currentColor.b})`;
+  renderInfoPanel();
+  renderUI();
   infoPanel.classList.remove("hidden");
   nextBtn.classList.remove("hidden");
 }
+
+function onLocaleChange() {
+  renderUI();
+  renderButtons();
+  if (answered) renderInfoPanel();
+}
+
+// Populate lang switcher
+LOCALES.forEach(({ code, label }) => {
+  const opt = document.createElement('option');
+  opt.value = code;
+  opt.textContent = label;
+  langSelect.appendChild(opt);
+});
+langSelect.value = getLocale();
+
+langSelect.addEventListener('change', () => setLocale(langSelect.value));
+document.addEventListener('localechange', onLocaleChange);
 
 choiceBtns.forEach(btn => {
   btn.addEventListener("click", () => {
