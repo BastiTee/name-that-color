@@ -1,6 +1,6 @@
 // W3C CSS Color Level 4 named colors
 // Source: https://www.w3.org/TR/css-color-4/#named-colors
-const COLORS = [
+export const COLORS = [
   { name: "aliceblue", hex: "#F0F8FF", r: 240, g: 248, b: 255 },
   { name: "antiquewhite", hex: "#FAEBD7", r: 250, g: 235, b: 215 },
   { name: "aqua", hex: "#00FFFF", r: 0, g: 255, b: 255 },
