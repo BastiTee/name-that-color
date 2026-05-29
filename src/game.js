@@ -1,5 +1,5 @@
 import { COLORS } from './colors.js';
-import { t, getLocale, setLocale, LOCALES } from './i18n.js';
+import { t, tColor, getLocale, setLocale, LOCALES } from './i18n.js';
 
 function rgbToLab(r, g, b) {
   // sRGB → linear
@@ -103,13 +103,13 @@ function shuffle(arr) {
 
 function renderButtons() {
   choiceBtns.forEach((btn, i) => {
-    btn.textContent = t('colors.' + currentChoices[i].name);
+    btn.textContent = tColor(currentChoices[i].name);
     btn.dataset.colorName = currentChoices[i].name;
   });
 }
 
 function renderInfoPanel() {
-  infoName.textContent = t('colors.' + currentColor.name);
+  infoName.textContent = tColor(currentColor.name);
   infoHex.textContent = currentColor.hex;
   infoRgb.textContent = `rgb(${currentColor.r}, ${currentColor.g}, ${currentColor.b})`;
 }
@@ -120,9 +120,9 @@ function renderSimilarPanel() {
   simLeftSwatch.style.backgroundColor = left.name;
   simCenterSwatch.style.backgroundColor = currentColor.name;
   simRightSwatch.style.backgroundColor = right.name;
-  simLeftName.textContent = t('colors.' + left.name);
-  simCenterName.textContent = t('colors.' + currentColor.name);
-  simRightName.textContent = t('colors.' + right.name);
+  simLeftName.textContent = tColor(left.name);
+  simCenterName.textContent = tColor(currentColor.name);
+  simRightName.textContent = tColor(right.name);
 }
 
 function renderUI() {
