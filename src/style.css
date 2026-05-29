@@ -266,7 +266,7 @@ main {
 }
 
 .reveal-bar {
-  width: 100%;
+  width: min(200px, 60vw);
   height: 6px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 3px;
@@ -388,6 +388,10 @@ footer {
   .swatch {
     width: 260px;
     height: 260px;
+  }
+
+  .reveal-bar {
+    width: 260px;
   }
 
   .choices {
