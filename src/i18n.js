@@ -4,12 +4,14 @@ const translations = {
   en: {
     ui: {
       next: 'Next Color →',
+      title: 'Name That Color',
     },
     colors: Object.fromEntries(COLORS.map(c => [c.name, c.label])),
   },
   de: {
     ui: {
       next: 'Nächste Farbe →',
+      title: 'Wie heißt die Farbe?',
     },
     colors: {
       aliceblue: 'Alice-Blau',

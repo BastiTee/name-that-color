@@ -8,6 +8,7 @@ const infoName = document.getElementById("info-name");
 const infoHex = document.getElementById("info-hex");
 const infoRgb = document.getElementById("info-rgb");
 const nextBtn = document.getElementById("next-btn");
+const titleEl = document.getElementById("title");
 const langSelect = document.getElementById("lang-select");
 
 let currentColor = null;
@@ -43,6 +44,7 @@ function renderInfoPanel() {
 }
 
 function renderUI() {
+  titleEl.textContent = t('ui.title');
   nextBtn.textContent = t('ui.next');
 }
 
