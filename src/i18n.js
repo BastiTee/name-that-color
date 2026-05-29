@@ -174,7 +174,7 @@ export const LOCALES = [
 ];
 
 export function getLocale() {
-  return localStorage.getItem('ntc-locale') || 'en';
+  return localStorage.getItem('ntc-locale') || 'de';
 }
 
 export function setLocale(code) {
