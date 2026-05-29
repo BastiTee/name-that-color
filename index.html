@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Name That Color</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Name That Color</h1>
+    <p class="subtitle">Can you identify the CSS named color?</p>
+  </header>
+
+  <main>
+    <section class="game-area">
+      <div id="swatch" class="swatch" aria-label="Color swatch to identify"></div>
+
+      <div id="choices" class="choices" role="group" aria-label="Color name choices">
+        <button class="choice-btn" data-index="0"></button>
+        <button class="choice-btn" data-index="1"></button>
+        <button class="choice-btn" data-index="2"></button>
+      </div>
+
+      <div id="info-panel" class="info-panel hidden" aria-live="polite">
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Name</span>
+            <span id="info-name" class="info-value"></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Hex</span>
+            <span id="info-hex" class="info-value mono"></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">RGB</span>
+            <span id="info-rgb" class="info-value mono"></span>
+          </div>
+        </div>
+      </div>
+
+      <button id="next-btn" class="next-btn hidden">Next Color &rarr;</button>
+    </section>
+  </main>
+
+  <script src="colors.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

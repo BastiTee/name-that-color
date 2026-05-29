@@ -1,0 +1,188 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #1a1a2e;
+  --surface: #16213e;
+  --surface2: #0f3460;
+  --accent: #e94560;
+  --text: #eaeaea;
+  --text-muted: #9a9ab0;
+  --correct: #2ecc71;
+  --incorrect: #e74c3c;
+  --radius: 12px;
+  --transition: 0.2s ease;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+  font-size: 0.95rem;
+}
+
+main {
+  width: 100%;
+  max-width: 480px;
+}
+
+.game-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Color swatch */
+.swatch {
+  width: 260px;
+  height: 260px;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  border: 3px solid rgba(255, 255, 255, 0.08);
+  transition: background-color var(--transition);
+}
+
+/* Choice buttons */
+.choices {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.choice-btn {
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  background: var(--surface);
+  color: var(--text);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: center;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.choice-btn:hover:not(:disabled) {
+  background: var(--surface2);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.choice-btn:disabled {
+  cursor: default;
+}
+
+.choice-btn.correct {
+  background: rgba(46, 204, 113, 0.2);
+  border-color: var(--correct);
+  color: var(--correct);
+}
+
+.choice-btn.incorrect {
+  background: rgba(231, 76, 60, 0.2);
+  border-color: var(--incorrect);
+  color: var(--incorrect);
+}
+
+/* Info panel */
+.info-panel {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.info-panel.hidden {
+  display: none;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  text-align: center;
+}
+
+.info-label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.info-value {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.info-value.mono {
+  font-family: ui-monospace, "Cascadia Code", monospace;
+}
+
+/* Next button */
+.next-btn {
+  padding: 0.85rem 2rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.next-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.next-btn.hidden {
+  display: none;
+}
+
+@media (max-width: 400px) {
+  .swatch {
+    width: 200px;
+    height: 200px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
